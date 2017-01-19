@@ -17,10 +17,11 @@ combined_train$BMI[is.na(combined_train$BMI)] = mean(combined_train$BMI, na.rm =
 preds = model.matrix(Age~Gender+Race,data = combined_train[-c(1:4,  9, 10)])[,-1]
 preds2 = as.matrix(cbind(preds, combined_train[-c(1:6, 9, 7, 10)]))
 y = combined_train$Age
-fit1 = cv.glmnet(x=preds2, y=y, type.measure = "mse", nfolds = 10, alpha = 0.8)
+fit1 = cv.glmnet(x=preds2, y=y, type.measure = "deviance", nfolds = 10, alpha = 1)
+plot(fit1)
 fit1$lambda
 fit1$lambda.min
-fit1$glmnet.fit$beta[which(glmmod$glmnet.fit$beta[,14]!=0),14] %>% sort() 
+fit1$glmnet.fit$beta[which(fit1$glmnet.fit$beta[,97]!=0),97] %>% sort() 
 
 
 
