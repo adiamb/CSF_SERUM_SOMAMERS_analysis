@@ -21,7 +21,7 @@ fit1 = cv.glmnet(x=preds2, y=y, type.measure = "deviance", nfolds = 10, alpha = 
 plot(fit1)
 fit1$lambda
 fit1$lambda.min
-fit1$glmnet.fit$beta[which(fit1$glmnet.fit$beta[,97]!=0),97] %>% sort() 
+fit1$glmnet.fit$beta[which(fit1$glmnet.fit$beta[,97]!=0),97] %>% sort()
 
 
 
