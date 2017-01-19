@@ -23,14 +23,21 @@ fit1$lambda
 fit1$lambda.min
 fit1$glmnet.fit$beta[which(fit1$glmnet.fit$beta[,97]!=0),97] %>% sort()
 
+###########################SAMR#################################
+y= combined_train$Age
+x = t(preds2)
+d = list(x=x, y=y, geneid=rownames(x), logged2=T)
 
-
-
-
-
-
-
-
+samr.obj<-samr(d,  resp.type="Quantitative", assay.type = "array", center.arrays = F, nperms = 1000)
+delta.table <- samr.compute.delta.table(samr.obj)
+delta.table
+delta=6
+samr.plot(samr.obj,delta)
+siggenes.table<-samr.compute.siggenes.table(samr.obj,delta, d, delta.table)
+siggenes.table
+require(ggplot2)
+ggplot(combined_train, aes(Age, combined_train$amyloid_precursor_protein_CSF))+geom_point()
+ggplot(combined_train, aes(Age, `HPLN1_SERUM`))+geom_point()
 csf = read_csv('~/Dropbox/CSF metabolites/CSFProteinAptamers/CSF_FINAL_Jan18.csv')
 serum = read_csv('~/Dropbox/CSF metabolites/CSFProteinAptamers/SERUM_FINAL_Jan18.csv')
 jap = read_csv('~/Dropbox/CSF metabolites/CSFProteinAptamers/JAPCSF_FINAL_Jan18.csv')
